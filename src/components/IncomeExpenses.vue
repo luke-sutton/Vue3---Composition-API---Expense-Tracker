@@ -15,11 +15,11 @@ defineProps({
   <div class="inc-exp-container">
     <div>
       <h4>Income</h4>
-      <p id="money-plus" class="money plus">+${{ income }}</p>
+      <p id="money-plus" class="money plus">£{{ income }}</p>
     </div>
     <div>
       <h4>Expense</h4>
-      <p id="money-minus" class="money minus">${{ expenses }}</p>
+      <p id="money-minus" class="money minus">£{{ expenses }}</p>
     </div>
   </div>
 </template>
@@ -37,6 +37,14 @@ defineProps({
 
 .money.minus {
   color: #c0392b;
+}
+
+.plus {
+  border-right: 5px solid #2ecc71;
+}
+
+.minus {
+  border-right: 5px solid #c0392b;
 }
 
 .inc-exp-container {
