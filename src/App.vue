@@ -1,10 +1,16 @@
+<!-- App.vue -->
 <template>
-  <Header />
-  <div class="container">
-    <Balance :total="+total" />
-    <IncomeExpenses :income="+income" :expenses="+expenses" />
-    <TransactionList :transactions="transactions" @transactionDeleted="handleTransactionDeleted" />
-    <AddTransaction @transactionSubmitted="handleTransactionSubmitted" />
+  <div>
+    <Header />
+    <div class="container">
+      <Balance />
+      <IncomeExpenses />
+      <TransactionList
+        :transactions="transactions"
+        @transactionDeleted="handleTransactionDeleted"
+      />
+      <AddTransaction @transactionSubmitted="handleTransactionSubmitted" />
+    </div>
   </div>
 </template>
 
@@ -14,84 +20,28 @@ import Balance from './components/BalanceSection.vue'
 import IncomeExpenses from '../../vue-expense-tracker/src/components/IncomeExpenses.vue'
 import TransactionList from '../../vue-expense-tracker/src/components/TransactionList.vue'
 import AddTransaction from '../../vue-expense-tracker/src/components/AddTransaction.vue'
+import { useExpenseTrackerStore } from '@/stores/transactions.js'
+import { onMounted, computed } from 'vue'
 
 import { useToast } from 'vue-toastification'
 
-import { ref, computed, onMounted } from 'vue'
-
 const toast = useToast()
 
-const transactions = ref([
-  // { id: 1, text: 'Flower', amount: -19.99 },
-  // { id: 2, text: 'Salary', amount: 299.97 },
-  // { id: 3, text: 'Book', amount: -10 },
-  // { id: 4, text: 'Camera', amount: 150 }
-])
+const store = useExpenseTrackerStore()
+
+const transactions = computed(() => store.transactions)
 
 onMounted(() => {
-  const savedTransactions = JSON.parse(localStorage.getItem('transactions'))
-
-  if (savedTransactions) {
-    transactions.value = savedTransactions
-  }
+  store.initTransactions()
 })
 
-// Get total
-const total = computed(() => {
-  return transactions.value.reduce((acc, transaction) => {
-    return acc + transaction.amount
-  }, 0)
-})
-
-// Get income
-const income = computed(() => {
-  return transactions.value
-    .filter((transaction) => transaction.amount > 0)
-    .reduce((acc, transaction) => {
-      return acc + transaction.amount
-    }, 0)
-    .toFixed(2)
-})
-
-// Get expenses
-const expenses = computed(() => {
-  return transactions.value
-    .filter((transaction) => transaction.amount < 0)
-    .reduce((acc, transaction) => {
-      return acc + transaction.amount
-    }, 0)
-    .toFixed(2)
-})
-
-//Add transaction
 const handleTransactionSubmitted = (transactionData) => {
-  transactions.value.push({
-    id: generateUniqueId(),
-    text: transactionData.text,
-    amount: transactionData.amount
-  })
-
-  saveTransactionsToLocalStorage()
-
+  store.addTransaction(transactionData)
   toast.success('Transaction added')
 }
 
-// Generate unique ID
-const generateUniqueId = () => {
-  return Math.floor(Math.random() * 1000000)
-}
-
-// Delete transaction
 const handleTransactionDeleted = (id) => {
-  transactions.value = transactions.value.filter((transaction) => transaction.id !== id)
-
-  saveTransactionsToLocalStorage()
-
+  store.deleteTransaction(id)
   toast.success('Transaction deleted')
-}
-
-// Save to local storage
-const saveTransactionsToLocalStorage = () => {
-  localStorage.setItem('transactions', JSON.stringify(transactions.value))
 }
 </script>
