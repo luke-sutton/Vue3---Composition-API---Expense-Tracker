@@ -22,11 +22,9 @@ import TransactionList from '../../vue-expense-tracker/src/components/Transactio
 import AddTransaction from '../../vue-expense-tracker/src/components/AddTransaction.vue'
 import { useExpenseTrackerStore } from '@/stores/transactions.js'
 import { onMounted, computed } from 'vue'
-
 import { useToast } from 'vue-toastification'
 
 const toast = useToast()
-
 const store = useExpenseTrackerStore()
 
 const transactions = computed(() => store.transactions)
