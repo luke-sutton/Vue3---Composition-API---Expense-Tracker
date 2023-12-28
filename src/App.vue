@@ -17,9 +17,9 @@
 <script setup>
 import Header from './components/HeaderSection.vue'
 import Balance from './components/BalanceSection.vue'
-import IncomeExpenses from '../../vue-expense-tracker/src/components/IncomeExpenses.vue'
-import TransactionList from '../../vue-expense-tracker/src/components/TransactionList.vue'
-import AddTransaction from '../../vue-expense-tracker/src/components/AddTransaction.vue'
+import IncomeExpenses from './components/IncomeExpenses.vue'
+import TransactionList from './components/TransactionList.vue'
+import AddTransaction from './components/AddTransaction.vue'
 import { useExpenseTrackerStore } from '@/stores/transactions.js'
 import { onMounted, computed } from 'vue'
 import { useToast } from 'vue-toastification'
