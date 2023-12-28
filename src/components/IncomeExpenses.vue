@@ -1,14 +1,11 @@
 <script setup>
-defineProps({
-  income: {
-    type: Number,
-    required: true
-  },
-  expenses: {
-    type: Number,
-    required: true
-  }
-})
+import { useExpenseTrackerStore } from '@/stores/transactions.js'
+import { computed } from 'vue'
+
+const store = useExpenseTrackerStore()
+
+const income = computed(() => store.getIncome())
+const expenses = computed(() => store.getExpenses())
 </script>
 
 <template>

@@ -1,10 +1,10 @@
 <script setup>
-defineProps({
-  total: {
-    type: Number,
-    required: true
-  }
-})
+import { useExpenseTrackerStore } from '@/stores/transactions.js'
+import { computed } from 'vue'
+
+const store = useExpenseTrackerStore()
+
+const total = computed(() => store.getTotal())
 </script>
 
 <template>
