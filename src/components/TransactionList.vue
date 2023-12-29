@@ -61,6 +61,14 @@ h3 {
   margin: 10px 0;
 }
 
+.plus {
+  border-right: 5px solid #2ecc71;
+}
+
+.minus {
+  border-right: 5px solid #c0392b;
+}
+
 .delete-btn {
   cursor: pointer;
   background-color: #e74c3c;
