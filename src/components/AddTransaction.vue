@@ -23,6 +23,7 @@ const onSubmit = () => {
   emit('transactionSubmitted', transactionData)
 
   text.value = ''
+  amount.value = ''
 }
 </script>
 
