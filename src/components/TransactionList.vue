@@ -75,6 +75,10 @@ h3 {
   transform: translate(-100%, -50%);
   opacity: 0;
   transition: opacity 0.3s ease;
+
+  @media only screen and (max-width: 768px) {
+    opacity: 1;
+  }
 }
 
 .list li:hover .delete-btn {
